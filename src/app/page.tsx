@@ -1,11 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Radio, Youtube, Heart, Music, MessageCircle, ChevronDown } from "lucide-react";
+import { Radio, Youtube, Heart, Music, MessageCircle, ChevronDown, Tv } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
+
+function TwitchIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+    </svg>
+  );
+}
 
 function TelegramIcon({ className }: { className?: string }) {
   return (
@@ -57,6 +65,13 @@ function AnimatedRadioWaves() {
 export default function RadioPage() {
   const [scrollY, setScrollY] = useState(0);
   const [isLive, setIsLive] = useState(true);
+  const [twitchParent, setTwitchParent] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setTwitchParent(window.location.hostname);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -107,6 +122,7 @@ export default function RadioPage() {
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a href="#inicio" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Inicio</a>
+            <a href="#envivo" className="text-blue-200/70 hover:text-indigo-400 transition-colors">En Vivo</a>
             <a href="#video" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Video</a>
             <a href="#nosotros" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Nosotros</a>
             <Button
@@ -212,12 +228,12 @@ export default function RadioPage() {
             animate="visible"
             className="flex items-center justify-center gap-3 mb-10"
           >
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/90 backdrop-blur-sm text-sm font-semibold">
+            <a href="#envivo" className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/90 backdrop-blur-sm text-sm font-semibold hover:bg-red-500 transition-colors">
               <span
                 className={`w-2.5 h-2.5 rounded-full ${isLive ? "bg-white animate-pulse" : "bg-red-300"}`}
               />
               EN VIVO
-            </div>
+            </a>
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-900/30 backdrop-blur-sm text-sm border border-indigo-500/20">
               <AnimatedRadioWaves />
             </div>
@@ -284,6 +300,79 @@ export default function RadioPage() {
               desc="Conectados por el amor de Cristo"
             />
           </div>
+        </div>
+      </section>
+
+      {/* ===== TWITCH EN VIVO SECTION ===== */}
+      <section id="envivo" className="py-16 sm:py-24 bg-[#0a0e27] relative">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] -z-10" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-sm font-semibold mb-4">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              TRANSMISIÓN EN VIVO
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3">
+              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+                Twitch En Vivo
+              </span>
+            </h2>
+            <p className="text-blue-200/60 text-base sm:text-lg max-w-2xl mx-auto">
+              Sintoniza nuestra transmisión en vivo las 24 horas. Música cristiana, alabanzas y la palabra de Dios sin interrupción.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <Card className="bg-[#0d1233]/80 border border-purple-500/20 overflow-hidden shadow-2xl shadow-purple-900/10">
+              <CardContent className="p-0">
+                <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                  {twitchParent && (
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://player.twitch.tv/?channel=cristounidos&parent=${twitchParent}&muted=false`}
+                      title="Radio Cristo Unidos - Twitch Live"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Twitch CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 text-center"
+          >
+            <Button
+              asChild
+              size="lg"
+              className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-base px-8 gap-3 shadow-lg shadow-purple-600/20"
+            >
+              <a href="https://www.twitch.tv/cristounidos" target="_blank" rel="noopener noreferrer">
+                <TwitchIcon className="h-5 w-5" />
+                Seguir en Twitch — @cristounidos
+              </a>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
@@ -444,6 +533,14 @@ export default function RadioPage() {
               >
                 <Youtube className="h-4 w-4" /> Canal de YouTube
               </a>
+              <a
+                href="https://www.twitch.tv/cristounidos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-200/50 hover:text-purple-400 text-sm transition-colors flex items-center gap-2"
+              >
+                <TwitchIcon className="h-4 w-4" /> Twitch En Vivo
+              </a>
               <a href="#inicio" className="text-blue-200/50 hover:text-indigo-400 text-sm transition-colors">
                 Inicio
               </a>
@@ -458,6 +555,17 @@ export default function RadioPage() {
             {/* Contact */}
             <div className="flex flex-col items-center md:items-end gap-2">
               <h4 className="font-semibold text-blue-100 mb-1">Síguenos</h4>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="border-purple-500/40 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 gap-2"
+              >
+                <a href="https://www.twitch.tv/cristounidos" target="_blank" rel="noopener noreferrer">
+                  <TwitchIcon className="h-4 w-4" />
+                  @cristounidos
+                </a>
+              </Button>
               <Button
                 asChild
                 variant="outline"
