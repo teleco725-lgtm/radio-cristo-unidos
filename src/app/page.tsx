@@ -30,7 +30,7 @@ function AnimatedRadioWaves() {
       {bars.map((bar, i) => (
         <motion.div
           key={i}
-          className="w-1.5 rounded-full bg-amber-400"
+          className="w-1.5 rounded-full bg-orange-400"
           animate={{
             height: [bar.height * 0.4, bar.height, bar.height * 0.6, bar.height],
           }}
@@ -64,13 +64,13 @@ export default function RadioPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-950 text-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#0a0e27] text-white overflow-x-hidden">
       {/* ===== HEADER / NAVBAR ===== */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          backgroundColor: scrollY > 60 ? "rgba(10,10,10,0.92)" : "transparent",
+          backgroundColor: scrollY > 60 ? "rgba(10,14,39,0.92)" : "transparent",
           backdropFilter: scrollY > 60 ? "blur(16px)" : "none",
-          borderBottom: scrollY > 60 ? "1px solid rgba(245,158,11,0.15)" : "none",
+          borderBottom: scrollY > 60 ? "1px solid rgba(99,102,241,0.2)" : "none",
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -84,13 +84,13 @@ export default function RadioPage() {
             <img
               src="/radio-logo.png"
               alt="Radio Cristo Unidos Logo"
-              className="h-10 w-10 rounded-full object-cover ring-2 ring-amber-500/50 group-hover:ring-amber-400 transition-all"
+              className="h-10 w-10 rounded-full object-cover ring-2 ring-indigo-500/50 group-hover:ring-indigo-400 transition-all"
             />
             <div className="flex flex-col">
-              <span className="text-sm sm:text-base font-bold tracking-wide text-amber-400 group-hover:text-amber-300 transition-colors">
+              <span className="text-sm sm:text-base font-bold tracking-wide text-indigo-400 group-hover:text-indigo-300 transition-colors">
                 CRISTO UNIDOS
               </span>
-              <span className="text-[10px] sm:text-xs text-neutral-400 tracking-widest uppercase">
+              <span className="text-[10px] sm:text-xs text-blue-300/60 tracking-widest uppercase">
                 Radio en Vivo
               </span>
             </div>
@@ -98,13 +98,13 @@ export default function RadioPage() {
 
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#inicio" className="text-neutral-300 hover:text-amber-400 transition-colors">Inicio</a>
-            <a href="#video" className="text-neutral-300 hover:text-amber-400 transition-colors">Video</a>
-            <a href="#nosotros" className="text-neutral-300 hover:text-amber-400 transition-colors">Nosotros</a>
+            <a href="#inicio" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Inicio</a>
+            <a href="#video" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Video</a>
+            <a href="#nosotros" className="text-blue-200/70 hover:text-indigo-400 transition-colors">Nosotros</a>
             <Button
               asChild
               size="sm"
-              className="bg-amber-500 hover:bg-amber-400 text-black font-semibold gap-2"
+              className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold gap-2"
             >
               <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
                 <Youtube className="h-4 w-4" />
@@ -117,7 +117,7 @@ export default function RadioPage() {
           <Button
             asChild
             size="sm"
-            className="md:hidden bg-amber-500 hover:bg-amber-400 text-black"
+            className="md:hidden bg-indigo-600 hover:bg-indigo-500 text-white"
           >
             <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
               <Youtube className="h-4 w-4" />
@@ -134,7 +134,7 @@ export default function RadioPage() {
           style={{ backgroundImage: "url('/radio-hero.png')" }}
         />
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-neutral-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/70 via-[#0a0e27]/40 to-[#0a0e27]" />
 
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
@@ -148,7 +148,7 @@ export default function RadioPage() {
             <img
               src="/radio-logo.png"
               alt="Radio Cristo Unidos"
-              className="w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-full object-cover ring-4 ring-amber-500/40 shadow-2xl shadow-amber-500/20"
+              className="w-28 h-28 sm:w-36 sm:h-36 mx-auto rounded-full object-cover ring-4 ring-indigo-500/40 shadow-2xl shadow-indigo-500/20"
             />
           </motion.div>
 
@@ -159,7 +159,7 @@ export default function RadioPage() {
             animate="visible"
             className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-4"
           >
-            <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent">
               Radio Cristo Unidos
             </span>
           </motion.h1>
@@ -169,7 +169,7 @@ export default function RadioPage() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-lg sm:text-xl md:text-2xl text-neutral-300 mb-2 font-light"
+            className="text-lg sm:text-xl md:text-2xl text-blue-100/80 mb-2 font-light"
           >
             Tu Estación de Fe y Esperanza
           </motion.p>
@@ -187,7 +187,7 @@ export default function RadioPage() {
               />
               EN VIVO
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-900/30 backdrop-blur-sm text-sm border border-indigo-500/20">
               <AnimatedRadioWaves />
             </div>
           </motion.div>
@@ -202,7 +202,7 @@ export default function RadioPage() {
             <Button
               asChild
               size="lg"
-              className="bg-amber-500 hover:bg-amber-400 text-black font-bold text-base px-8 gap-2 shadow-lg shadow-amber-500/25"
+              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-base px-8 gap-2 shadow-lg shadow-indigo-600/25"
             >
               <a href="#video">
                 <Radio className="h-5 w-5" />
@@ -213,7 +213,7 @@ export default function RadioPage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 font-semibold text-base px-8 gap-2"
+              className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 font-semibold text-base px-8 gap-2"
             >
               <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
                 <Youtube className="h-5 w-5" />
@@ -228,27 +228,27 @@ export default function RadioPage() {
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <ChevronDown className="h-8 w-8 text-amber-500/60" />
+            <ChevronDown className="h-8 w-8 text-indigo-400/60" />
           </motion.div>
         </div>
       </section>
 
       {/* ===== FEATURES STRIP ===== */}
-      <section className="relative bg-neutral-900 border-y border-amber-500/10">
+      <section className="relative bg-[#0d1233] border-y border-indigo-500/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             <FeatureItem
-              icon={<Music className="h-6 w-6 text-amber-400" />}
+              icon={<Music className="h-6 w-6 text-indigo-400" />}
               title="Música Cristiana"
               desc="Alabanzas y adoración 24/7"
             />
             <FeatureItem
-              icon={<MessageCircle className="h-6 w-6 text-amber-400" />}
+              icon={<MessageCircle className="h-6 w-6 text-purple-400" />}
               title="Mensajes de Fe"
               desc="Palabra inspiradora para tu vida"
             />
             <FeatureItem
-              icon={<Heart className="h-6 w-6 text-amber-400" />}
+              icon={<Heart className="h-6 w-6 text-orange-400" />}
               title="Comunidad"
               desc="Conectados por el amor de Cristo"
             />
@@ -257,7 +257,7 @@ export default function RadioPage() {
       </section>
 
       {/* ===== VIDEO SECTION ===== */}
-      <section id="video" className="py-16 sm:py-24 bg-neutral-950">
+      <section id="video" className="py-16 sm:py-24 bg-[#0a0e27]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -267,11 +267,11 @@ export default function RadioPage() {
             className="text-center mb-10"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-              <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                 Nuestra Transmisión
               </span>
             </h2>
-            <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto">
+            <p className="text-blue-200/60 text-base sm:text-lg max-w-2xl mx-auto">
               Disfruta de nuestros programas, alabanzas y mensajes de fe directamente desde nuestro canal de YouTube.
             </p>
           </motion.div>
@@ -282,7 +282,7 @@ export default function RadioPage() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
           >
-            <Card className="bg-neutral-900/80 border border-amber-500/20 overflow-hidden shadow-2xl shadow-amber-900/10">
+            <Card className="bg-[#0d1233]/80 border border-indigo-500/20 overflow-hidden shadow-2xl shadow-indigo-900/10">
               <CardContent className="p-0">
                 <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                   <iframe
@@ -322,7 +322,7 @@ export default function RadioPage() {
       </section>
 
       {/* ===== ABOUT SECTION ===== */}
-      <section id="nosotros" className="py-16 sm:py-24 bg-neutral-900/50">
+      <section id="nosotros" className="py-16 sm:py-24 bg-[#0d1233]/50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -333,20 +333,20 @@ export default function RadioPage() {
           >
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent">
                   Sobre Nosotros
                 </span>
               </h2>
-              <Separator className="bg-amber-500/20 mb-6" />
-              <p className="text-neutral-300 leading-relaxed mb-4">
-                <strong className="text-amber-400">Radio Cristo Unidos</strong> es más que una estación de radio — es una comunidad de creyentes unidos por la fe en Jesucristo. Nuestra misión es llevar un mensaje de esperanza, amor y redención a cada hogar.
+              <Separator className="bg-indigo-500/20 mb-6" />
+              <p className="text-blue-100/80 leading-relaxed mb-4">
+                <strong className="text-indigo-400">Radio Cristo Unidos</strong> es más que una estación de radio — es una comunidad de creyentes unidos por la fe en Jesucristo. Nuestra misión es llevar un mensaje de esperanza, amor y redención a cada hogar.
               </p>
-              <p className="text-neutral-400 leading-relaxed mb-6">
+              <p className="text-blue-200/60 leading-relaxed mb-6">
                 A través de la música cristiana, enseñanzas bíblicas y testimonios de fe, buscamos ser una luz en tu día a día. Nos encuentras en vivo las 24 horas, los 7 días de la semana.
               </p>
               <Button
                 asChild
-                className="bg-amber-500 hover:bg-amber-400 text-black font-semibold gap-2"
+                className="bg-purple-600 hover:bg-purple-500 text-white font-semibold gap-2"
               >
                 <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
                   <Youtube className="h-4 w-4" />
@@ -355,7 +355,7 @@ export default function RadioPage() {
               </Button>
             </div>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden ring-2 ring-amber-500/20 shadow-xl">
+              <div className="rounded-2xl overflow-hidden ring-2 ring-indigo-500/20 shadow-xl">
                 <img
                   src="/radio-hero.png"
                   alt="Radio Cristo Unidos"
@@ -363,14 +363,14 @@ export default function RadioPage() {
                 />
               </div>
               {/* Decorative glow */}
-              <div className="absolute -inset-4 bg-amber-500/5 rounded-3xl blur-2xl -z-10" />
+              <div className="absolute -inset-4 bg-indigo-500/5 rounded-3xl blur-2xl -z-10" />
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="mt-auto bg-neutral-950 border-t border-amber-500/10">
+      <footer className="mt-auto bg-[#0a0e27] border-t border-indigo-500/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Brand */}
@@ -379,40 +379,40 @@ export default function RadioPage() {
                 <img
                   src="/radio-logo.png"
                   alt="Logo"
-                  className="h-10 w-10 rounded-full object-cover ring-2 ring-amber-500/30"
+                  className="h-10 w-10 rounded-full object-cover ring-2 ring-indigo-500/30"
                 />
-                <span className="font-bold text-amber-400 text-lg">Cristo Unidos</span>
+                <span className="font-bold text-indigo-400 text-lg">Cristo Unidos</span>
               </div>
-              <p className="text-neutral-500 text-sm text-center md:text-left">
+              <p className="text-blue-200/50 text-sm text-center md:text-left">
                 Tu estación de fe y esperanza. Música cristiana y mensajes inspiradores las 24 horas.
               </p>
             </div>
 
             {/* Links */}
             <div className="flex flex-col items-center gap-2">
-              <h4 className="font-semibold text-neutral-200 mb-1">Enlaces</h4>
+              <h4 className="font-semibold text-blue-100 mb-1">Enlaces</h4>
               <a
                 href="https://www.youtube.com/@cristounidos"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-amber-400 text-sm transition-colors flex items-center gap-2"
+                className="text-blue-200/50 hover:text-indigo-400 text-sm transition-colors flex items-center gap-2"
               >
                 <Youtube className="h-4 w-4" /> Canal de YouTube
               </a>
-              <a href="#inicio" className="text-neutral-400 hover:text-amber-400 text-sm transition-colors">
+              <a href="#inicio" className="text-blue-200/50 hover:text-indigo-400 text-sm transition-colors">
                 Inicio
               </a>
-              <a href="#video" className="text-neutral-400 hover:text-amber-400 text-sm transition-colors">
+              <a href="#video" className="text-blue-200/50 hover:text-indigo-400 text-sm transition-colors">
                 Transmisión
               </a>
-              <a href="#nosotros" className="text-neutral-400 hover:text-amber-400 text-sm transition-colors">
+              <a href="#nosotros" className="text-blue-200/50 hover:text-indigo-400 text-sm transition-colors">
                 Nosotros
               </a>
             </div>
 
             {/* Contact */}
             <div className="flex flex-col items-center md:items-end gap-2">
-              <h4 className="font-semibold text-neutral-200 mb-1">Síguenos</h4>
+              <h4 className="font-semibold text-blue-100 mb-1">Síguenos</h4>
               <Button
                 asChild
                 variant="outline"
@@ -427,9 +427,9 @@ export default function RadioPage() {
             </div>
           </div>
 
-          <Separator className="bg-neutral-800 mb-6" />
+          <Separator className="bg-indigo-900/50 mb-6" />
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-neutral-500 text-xs">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-blue-200/40 text-xs">
             <p>&copy; {new Date().getFullYear()} Radio Cristo Unidos. Todos los derechos reservados.</p>
             <p className="flex items-center gap-1">
               Hecho con <Heart className="h-3 w-3 text-red-500 fill-red-500" /> por la comunidad de fe
@@ -454,11 +454,11 @@ function FeatureItem({
 }) {
   return (
     <div className="flex flex-col items-center gap-2 p-4">
-      <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mb-1">
+      <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center mb-1">
         {icon}
       </div>
-      <h3 className="font-semibold text-neutral-200 text-base">{title}</h3>
-      <p className="text-neutral-400 text-sm">{desc}</p>
+      <h3 className="font-semibold text-blue-100 text-base">{title}</h3>
+      <p className="text-blue-200/60 text-sm">{desc}</p>
     </div>
   );
 }
