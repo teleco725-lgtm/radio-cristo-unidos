@@ -7,6 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 
+function TelegramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+    </svg>
+  );
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
@@ -104,6 +112,17 @@ export default function RadioPage() {
             <Button
               asChild
               size="sm"
+              variant="outline"
+              className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:text-sky-300 gap-2"
+            >
+              <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
+                <TelegramIcon className="h-4 w-4" />
+                <span className="hidden lg:inline">Telegram</span>
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="sm"
               className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold gap-2"
             >
               <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
@@ -113,16 +132,28 @@ export default function RadioPage() {
             </Button>
           </nav>
 
-          {/* Mobile menu button */}
-          <Button
-            asChild
-            size="sm"
-            className="md:hidden bg-indigo-600 hover:bg-indigo-500 text-white"
-          >
-            <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
-              <Youtube className="h-4 w-4" />
-            </a>
-          </Button>
+          {/* Mobile menu buttons */}
+          <div className="md:hidden flex items-center gap-2">
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10"
+            >
+              <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
+                <TelegramIcon className="h-4 w-4" />
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="sm"
+              className="bg-indigo-600 hover:bg-indigo-500 text-white"
+            >
+              <a href="https://www.youtube.com/@cristounidos" target="_blank" rel="noopener noreferrer">
+                <Youtube className="h-4 w-4" />
+              </a>
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -369,6 +400,20 @@ export default function RadioPage() {
         </div>
       </section>
 
+      {/* ===== FLOATING TELEGRAM BUTTON ===== */}
+      <a
+        href="https://t.me/cristounidos"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-40 bg-sky-500 hover:bg-sky-400 text-white p-4 rounded-full shadow-lg shadow-sky-500/30 transition-all duration-300 hover:scale-110 group"
+        aria-label="Contactar por Telegram"
+      >
+        <TelegramIcon className="h-6 w-6" />
+        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-white text-neutral-900 text-sm font-semibold px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Escríbenos por Telegram
+        </span>
+      </a>
+
       {/* ===== FOOTER ===== */}
       <footer className="mt-auto bg-[#0a0e27] border-t border-indigo-500/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -413,6 +458,17 @@ export default function RadioPage() {
             {/* Contact */}
             <div className="flex flex-col items-center md:items-end gap-2">
               <h4 className="font-semibold text-blue-100 mb-1">Síguenos</h4>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:text-sky-300 gap-2"
+              >
+                <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
+                  <TelegramIcon className="h-4 w-4" />
+                  @cristounidos
+                </a>
+              </Button>
               <Button
                 asChild
                 variant="outline"
