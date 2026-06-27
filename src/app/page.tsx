@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Radio, Youtube, Heart, Music, MessageCircle, ChevronDown, Tv } from "lucide-react";
+import { Radio, Youtube, Heart, Music, MessageCircle, ChevronDown, Tv, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 function TwitchIcon({ className }: { className?: string }) {
   return (
@@ -65,13 +65,43 @@ function AnimatedRadioWaves() {
 export default function RadioPage() {
   const [scrollY, setScrollY] = useState(0);
   const [isLive, setIsLive] = useState(true);
-  const [twitchParent, setTwitchParent] = useState("");
+  const [twitchParent] = useState(() =>
+    typeof window !== "undefined" ? window.location.hostname : ""
+  );
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [audioPaused, setAudioPaused] = useState(false);
+  const [showAudioPrompt, setShowAudioPrompt] = useState(true);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setTwitchParent(window.location.hostname);
+  const stopAudio = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setAudioPlaying(false);
+      setAudioPaused(true);
     }
   }, []);
+
+  const startAudio = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.6;
+      audioRef.current.play().then(() => {
+        setAudioPlaying(true);
+        setAudioPaused(false);
+        setShowAudioPrompt(false);
+      }).catch(() => {
+        // Autoplay blocked by browser
+      });
+    }
+  }, []);
+
+  const toggleAudio = useCallback(() => {
+    if (audioPlaying) {
+      stopAudio();
+    } else {
+      startAudio();
+    }
+  }, [audioPlaying, stopAudio, startAudio]);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -86,8 +116,111 @@ export default function RadioPage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-stop audio when user interacts with Twitch or YouTube sections
+  const handleStreamActivate = () => {
+    stopAudio();
+  };
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden && audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        setAudioPlaying(false);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e27] text-white overflow-x-hidden">
+      {/* Hidden audio element */}
+      <audio ref={audioRef} src="/radio-audio.mp3" preload="auto" />
+
+      {/* ===== AUDIO PROMPT OVERLAY ===== */}
+      {showAudioPrompt && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={startAudio}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+            className="bg-[#0d1233] border border-indigo-500/30 rounded-2xl p-8 sm:p-12 text-center max-w-md mx-auto shadow-2xl shadow-indigo-500/10 cursor-pointer hover:border-indigo-400/50 transition-colors"
+          >
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-600/30"
+            >
+              <Volume2 className="h-10 w-10 text-white" />
+            </motion.div>
+            <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              Radio Cristo Unidos
+            </h3>
+            <p className="text-blue-200/70 mb-6 text-sm sm:text-base">
+              Toca para escuchar nuestra programación musical
+            </p>
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-colors">
+              <Play className="h-5 w-5" />
+              Escuchar Radio
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* ===== FLOATING AUDIO PLAYER ===== */}
+      {!showAudioPrompt && (
+        <motion.div
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 sm:left-4 sm:translate-x-0"
+        >
+          <div className={`flex items-center gap-3 px-4 py-2.5 rounded-full shadow-xl backdrop-blur-md border transition-all duration-300 ${
+            audioPlaying
+              ? "bg-indigo-900/80 border-indigo-500/30 shadow-indigo-500/20"
+              : "bg-[#0d1233]/80 border-indigo-500/10"
+          }`}>
+            {audioPlaying && (
+              <div className="flex items-end gap-[2px] h-5">
+                {[1, 2, 3, 4].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-[3px] rounded-full bg-orange-400"
+                    animate={{
+                      height: [4, 12 + i * 3, 6, 14 + i * 2],
+                    }}
+                    transition={{
+                      duration: 0.6 + i * 0.15,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+            <button
+              onClick={toggleAudio}
+              className="w-9 h-9 rounded-full bg-indigo-600 hover:bg-indigo-500 flex items-center justify-center transition-colors"
+              aria-label={audioPlaying ? "Pausar audio" : "Reproducir audio"}
+            >
+              {audioPlaying ? (
+                <Pause className="h-4 w-4 text-white" />
+              ) : (
+                <VolumeX className="h-4 w-4 text-white/70" />
+              )}
+            </button>
+            <span className="text-xs text-blue-200/60 hidden sm:block max-w-[140px] truncate">
+              {audioPlaying ? "Reproduciendo..." : "Audio en pausa"}
+            </span>
+          </div>
+        </motion.div>
+      )}
+
       {/* ===== HEADER / NAVBAR ===== */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
@@ -228,7 +361,7 @@ export default function RadioPage() {
             animate="visible"
             className="flex items-center justify-center gap-3 mb-10"
           >
-            <a href="#envivo" className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/90 backdrop-blur-sm text-sm font-semibold hover:bg-red-500 transition-colors">
+            <a href="#envivo" onClick={handleStreamActivate} className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/90 backdrop-blur-sm text-sm font-semibold hover:bg-red-500 transition-colors">
               <span
                 className={`w-2.5 h-2.5 rounded-full ${isLive ? "bg-white animate-pulse" : "bg-red-300"}`}
               />
@@ -251,7 +384,7 @@ export default function RadioPage() {
               size="lg"
               className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-base px-8 gap-2 shadow-lg shadow-indigo-600/25"
             >
-              <a href="#video">
+              <a href="#video" onClick={handleStreamActivate}>
                 <Radio className="h-5 w-5" />
                 Ver Transmisión
               </a>
@@ -349,6 +482,18 @@ export default function RadioPage() {
                       allowFullScreen
                     />
                   )}
+                  {/* Overlay to intercept clicks when audio is playing */}
+                  {audioPlaying && (
+                    <div
+                      className="absolute inset-0 z-10 bg-black/40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:bg-black/50 transition-colors backdrop-blur-[2px]"
+                      onClick={handleStreamActivate}
+                    >
+                      <div className="w-14 h-14 rounded-full bg-purple-600/90 flex items-center justify-center shadow-lg">
+                        <Play className="h-7 w-7 text-white ml-1" />
+                      </div>
+                      <span className="text-sm text-white/90 font-medium">Toca para activar el stream</span>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -414,6 +559,18 @@ export default function RadioPage() {
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                   />
+                  {/* Overlay to intercept clicks when audio is playing */}
+                  {audioPlaying && (
+                    <div
+                      className="absolute inset-0 z-10 bg-black/40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:bg-black/50 transition-colors backdrop-blur-[2px]"
+                      onClick={handleStreamActivate}
+                    >
+                      <div className="w-14 h-14 rounded-full bg-red-600/90 flex items-center justify-center shadow-lg">
+                        <Play className="h-7 w-7 text-white ml-1" />
+                      </div>
+                      <span className="text-sm text-white/90 font-medium">Toca para ver el video</span>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
