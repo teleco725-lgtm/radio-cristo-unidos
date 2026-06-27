@@ -264,7 +264,7 @@ export default function RadioPage() {
               variant="outline"
               className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:text-sky-300 gap-2"
             >
-              <a href="https://web.telegram.org/a/#-1002412078258" target="_blank" rel="noopener noreferrer">
+              <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
                 <TelegramIcon className="h-4 w-4" />
                 <span className="hidden lg:inline">Telegram</span>
               </a>
@@ -289,7 +289,7 @@ export default function RadioPage() {
               variant="outline"
               className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10"
             >
-              <a href="https://web.telegram.org/a/#-1002412078258" target="_blank" rel="noopener noreferrer">
+              <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
                 <TelegramIcon className="h-4 w-4" />
               </a>
             </Button>
@@ -648,7 +648,7 @@ export default function RadioPage() {
 
       {/* ===== FLOATING TELEGRAM BUTTON ===== */}
       <a
-        href="https://web.telegram.org/a/#-1002412078258"
+        href="https://t.me/cristounidos"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-40 bg-sky-500 hover:bg-sky-400 text-white p-4 rounded-full shadow-lg shadow-sky-500/30 transition-all duration-300 hover:scale-110 group"
@@ -729,7 +729,7 @@ export default function RadioPage() {
                 size="sm"
                 className="border-sky-500/40 text-sky-400 hover:bg-sky-500/10 hover:text-sky-300 gap-2"
               >
-                <a href="https://web.telegram.org/a/#-1002412078258" target="_blank" rel="noopener noreferrer">
+                <a href="https://t.me/cristounidos" target="_blank" rel="noopener noreferrer">
                   <TelegramIcon className="h-4 w-4" />
                   @cristounidos
                 </a>
